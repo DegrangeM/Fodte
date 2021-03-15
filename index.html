@@ -4,24 +4,13 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<script src="./lib/zip-fs.min.js"></script>
+	<script src="./lib/jszip.min.js"></script>
+	<script src="./getText.js"></script>
 	<!--<script src="./lib/zip.min.js"></script>-->
 </head>
 
 <body>
-	<script>
-		document.addEventListener('drop', function (e) {
-			e.preventDefault();
-			// Autre possibilité e.dataTransfer.items mais peut contenir autre chose que des fichiers
-			for (var i = 0; i < e.dataTransfer.files.length; i++) {
-				file = new zip.ZipReader(new zip.BlobReader(e.dataTransfer.files[i]));
-				blob = new zip.BlobReader(e.dataTransfer.files[i]);
-			}
-		});
-		document.addEventListener('dragover', function(e){
-			e.preventDefault();
-		})
-	</script>
+
 </body>
 
 </html>
