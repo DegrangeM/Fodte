@@ -5,7 +5,9 @@ doc1 = parser.parseFromString(odt, "application/xml");
 let first = true;
 
 // il est possible que le document contiennent plusieurs formulaires. Dans ce cas là on applique le traitement à chaque formulaire.
-forms = doc1.getElementsByTagName('form:form');
+//forms = doc1.getElementsByTagName('form:form');
+
+inputs = doc1.getElementsByTagName('draw:control')
 
 struct = {
     "form:text": [
@@ -39,6 +41,11 @@ struct = {
 
 
 class Form_Element {
+    /**
+     * Return the name of the input
+     * @param {HTMLElement} e 
+     * @returns {String}
+     */
     static getName(e) {
         return e.getAttribute('form:name');
     }
@@ -73,7 +80,7 @@ Forms = {
         static getValue(e) {
             // Autre méthode : doc1.querySelectorAll('radio[*|group-name="toto"][*|current-selected]');
             const attribute = e.getAttribute('formx:group-name') ? 'formx:group-name' : 'form:name';
-            
+
             return Array.from(e.parentNode.getElementsByTagName('form:radio'))
                 .filter(x => x.getAttribute(attribute) == e.getAttribute(attribute) && x.getAttribute('form:current-selected') == 'true')
                 .map(x => x.getAttribute('form:label'))
@@ -92,9 +99,12 @@ Forms = {
 
 }
 
-Array.from(forms[0].children).forEach(function(e){
-    if(Forms[e.tagName]) {
-        console.log(e, Forms[e.tagName].getValue(e));
+Array.from(inputs).forEach(function (e) {
+
+    let id = e.getAttribute('draw:control');
+    let el = id.indexOf('"') == -1 && doc1.querySelector('form>*[*|id="' + id + '"]');
+    if (el && Forms[el.tagName]) {
+        console.log(el, Forms[el.tagName].getValue(el));
     }
 });
 
