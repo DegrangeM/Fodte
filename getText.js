@@ -23,6 +23,7 @@ struct = {
         "form:id",
         "form:label",
         "form:current-state", // checked
+        "form:is-tristate", // true
     ],
     "form:radio": [
         "form:name",
@@ -60,15 +61,29 @@ forms = {
         }
     },
     "form:checkbox": class extends Form_Element {
+        getName(e) {
+
+        }
         getValue(e) {
-            return e.getAttribute('current-state') == "checked" ? "[x]" : "[_]";
+            return e.getAttribute('current-state') == "checked" ? "[x]" : e.getAttribute('current-state') == "unknow" ? "[?]" : "[_]";
         }
     },
     "form:radio": class extends Form_Element {
         getValue(e) {
+            // Autre méthode : doc1.querySelectorAll('radio[*|group-name="toto"][*|current-selected]');
             let group = e.getAttribute('formx:group-name');
-
-            return e.getAttribute('current-state') == "checked" ? "[x]" : "[_]";
+            if (group) {
+                return Array.from(e.parentNode.getElementsByTagName('form:option'))
+                    .filter(x => x.getAttribute('formx:group-name') == group && x.getAttribute('form:current-selected') == 'true')
+                    .map(x => x.getAttribute('form:label'))
+                    .join(',');
+            } else {
+                let name = e.getAttribute('form:name');
+                return Array.from(e.parentNode.getElementsByTagName('form:option'))
+                    .filter(x => x.getAttribute('form:name') == name && x.getAttribute('form:current-selected') == 'true')
+                    .map(x => x.getAttribute('form:label'))
+                    .join(',');
+            }
         }
     },
     "form:listbox": class extends Form_Element {
