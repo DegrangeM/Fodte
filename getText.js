@@ -71,19 +71,12 @@ forms = {
     "form:radio": class extends Form_Element {
         getValue(e) {
             // Autre méthode : doc1.querySelectorAll('radio[*|group-name="toto"][*|current-selected]');
-            let group = e.getAttribute('formx:group-name');
-            if (group) {
-                return Array.from(e.parentNode.getElementsByTagName('form:option'))
-                    .filter(x => x.getAttribute('formx:group-name') == group && x.getAttribute('form:current-selected') == 'true')
-                    .map(x => x.getAttribute('form:label'))
-                    .join(',');
-            } else {
-                let name = e.getAttribute('form:name');
-                return Array.from(e.parentNode.getElementsByTagName('form:option'))
-                    .filter(x => x.getAttribute('form:name') == name && x.getAttribute('form:current-selected') == 'true')
-                    .map(x => x.getAttribute('form:label'))
-                    .join(',');
-            }
+            const attribute = e.getAttribute('formx:group-name') ? 'formx:group-name' : 'form:name';
+            
+            return Array.from(e.parentNode.getElementsByTagName('form:option'))
+                .filter(x => x.getAttribute(attribute) == e.getAttribute(attribute) && x.getAttribute('form:current-selected') == 'true')
+                .map(x => x.getAttribute('form:label'))
+                .join(',');
         }
     },
     "form:listbox": class extends Form_Element {
