@@ -7,39 +7,103 @@ let parser = new DOMParser();
 
 let first = true;
 
-function handleOdt(odt) {
-    first = false;
-    doc = parser.parseFromString(odt, "application/xml");
-    inputs = doc.getElementsByTagName('draw:control');
-    Array.from(inputs).forEach(function (e) {
+// on cherche s'il y a un fichier teacher sinon on prend le premier comme base ?
+// correction calcul score ?
 
-        let id = e.getAttribute('draw:control');
-        let el = id.indexOf('"') == -1 && doc.querySelector('form>*[*|id="' + id + '"]');
+let headers = {
+    ids: [],
+    names: []
+}
+let datas = [];
+
+/**
+ * 
+ * @param {string} odt content.xml
+ * @param {string} filename 
+ */
+function handleOdt(odt, filename) {
+    doc = parser.parseFromString(odt, "application/xml");
+
+    if(first) {
+        handleFirst();
+    }
+
+    first = false;
+    
+    let data = [filename];
+    
+    headers.ids.forEach(function (id) {
+        let el = doc.querySelector('form>*[*|id="' + id + '"]'); // get the input in form part
         if (el && Forms[el.tagName]) {
-            console.log(el, Forms[el.tagName].getValue(el));
-            let p = document.createElement('p');
-            p.textContent = Forms[el.tagName].getName(el) + '=' + Forms[el.tagName].getValue(el);
-            document.body.appendChild(p);
+            data.push(Forms[el.tagName].getValue(el));
+        }
+    });
+    datas.push(data);
+}
+
+
+function handleFirst() {
+    inputs = doc.getElementsByTagName('draw:control'); // get inputs in the text part
+    Array.from(inputs).forEach(function (e) {
+        let id = e.getAttribute('draw:control');
+        let el = id.indexOf('"') == -1 && doc.querySelector('form>*[*|id="' + id + '"]'); // get the input in form part
+        if (el && Forms[el.tagName]) {
+           headers.ids.push(id);
+           headers.names.push(Forms[el.tagName].getName(el));
         }
     });
 }
 
-// il est possible que le document contiennent plusieurs formulaires. Dans ce cas là on applique le traitement à chaque formulaire.
-//forms = doc.getElementsByTagName('form:form');
+function exportToCsv() {
+    let e = datas;
+    e.unshift(headers.names.unshift('Filename'));
+    log(CSV.serialize(e));
+}
 
+function downloadText(filename, txt) {
+    // Lance le téléchargement d'un fichier texte
+    let el = document.createElement('a');
+    el.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(txt));
+    el.setAttribute('download', filename);
 
+    el.style.display = 'none';
+    document.body.appendChild(el);
 
+    el.click();
 
+    document.body.removeChild(el);
+}
+
+function log(text) {
+    let p = document.createElement('p');
+    p.textContent = text;
+    document.body.appendChild(p);
+}
 
 
 document.addEventListener('drop', async function (e) {
     e.preventDefault();
     // Autre possibilité e.dataTransfer.items mais peut contenir autre chose que des fichiers
-    for (var i = 0; i < e.dataTransfer.files.length; i++) {
-        let zip = await JSZip.loadAsync(e.dataTransfer.files[i])
+
+    // AWAIT PAS POSSIBLE ICIIII 
+   /* await Array.from(e.dataTransfer.files).forEach(async function(f) {
+        let zip = await JSZip.loadAsync(f)
         let odt = await zip.file('content.xml').async('string');
-        handleOdt(odt);
+        handleOdt(odt, f.name); 
+    });
+    */
+    for (var i = 0; i < e.dataTransfer.files.length; i++) {
+        // PAS BON LOAD ASYNC MANGE LE FICHIER IL DISPARAIT DONC CA BOUCLE PAS
+        f = e.dataTransfer.files[i];
+        console.log(i, f, e.dataTransfer.files);
+        let zip = await JSZip.loadAsync(f);
+        console.log(i, f, e.dataTransfer.files);
+        let odt = await zip.file('content.xml').async('string');
+        handleOdt(odt, "tes");
     }
+
+    exportToCsv();
+
 });
 document.addEventListener('dragover', function (e) {
     e.preventDefault();
