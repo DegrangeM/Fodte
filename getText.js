@@ -24,14 +24,14 @@ let datas = [];
 function handleOdt(odt, filename) {
     doc = parser.parseFromString(odt, "application/xml");
 
-    if(first) {
+    if (first) {
         handleFirst();
     }
 
     first = false;
-    
+
     let data = [filename];
-    
+
     headers.ids.forEach(function (id) {
         let el = doc.querySelector('form>*[*|id="' + id + '"]'); // get the input in form part
         if (el && Forms[el.tagName]) {
@@ -48,16 +48,18 @@ function handleFirst() {
         let id = e.getAttribute('draw:control');
         let el = id.indexOf('"') == -1 && doc.querySelector('form>*[*|id="' + id + '"]'); // get the input in form part
         if (el && Forms[el.tagName]) {
-           headers.ids.push(id);
-           headers.names.push(Forms[el.tagName].getName(el));
+            headers.ids.push(id);
+            headers.names.push(Forms[el.tagName].getName(el));
         }
     });
 }
 
 function exportToCsv() {
     let e = datas;
-    e.unshift(headers.names.unshift('Filename'));
+    headers.names.unshift('Filename') // add "Filename" add the start of headers
+    e.unshift(headers.names); // put headers at the start of data needing export
     log(CSV.serialize(e));
+    downloadText('export.csv', CSV.serialize(e))
 }
 
 function downloadText(filename, txt) {
@@ -75,7 +77,7 @@ function downloadText(filename, txt) {
 }
 
 function log(text) {
-    let p = document.createElement('p');
+    let p = document.createElement('pre');
     p.textContent = text;
     document.body.appendChild(p);
 }
@@ -83,23 +85,11 @@ function log(text) {
 
 document.addEventListener('drop', async function (e) {
     e.preventDefault();
-    // Autre possibilité e.dataTransfer.items mais peut contenir autre chose que des fichiers
-
-    // AWAIT PAS POSSIBLE ICIIII 
-   /* await Array.from(e.dataTransfer.files).forEach(async function(f) {
-        let zip = await JSZip.loadAsync(f)
+    let files = e.dataTransfer.files; // required because it will be lost during async
+    for (var i = 0; i < files.length; i++) {
+        let zip = await JSZip.loadAsync(files[i]);
         let odt = await zip.file('content.xml').async('string');
-        handleOdt(odt, f.name); 
-    });
-    */
-    for (var i = 0; i < e.dataTransfer.files.length; i++) {
-        // PAS BON LOAD ASYNC MANGE LE FICHIER IL DISPARAIT DONC CA BOUCLE PAS
-        f = e.dataTransfer.files[i];
-        console.log(i, f, e.dataTransfer.files);
-        let zip = await JSZip.loadAsync(f);
-        console.log(i, f, e.dataTransfer.files);
-        let odt = await zip.file('content.xml').async('string');
-        handleOdt(odt, "tes");
+        handleOdt(odt, files[i].name);
     }
 
     exportToCsv();

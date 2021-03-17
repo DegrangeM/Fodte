@@ -18,6 +18,9 @@ class Form_Element {
     static getId(e) {
         return e.getAttribute('form:id');
     }
+    static ignore(e) {
+        return false;
+    }
 }
 
 Forms = {
