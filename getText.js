@@ -93,7 +93,14 @@ function log(text) {
 
 document.addEventListener('drop', async function (e) {
     e.preventDefault();
-    let files = e.dataTransfer.files; // required because it will be lost during async
+    let files = Array.from(e.dataTransfer.files); // required because it will be lost during async
+
+    let teacherIndex = files.findIndex(x=>x.name === '_teacher.odt');
+
+    if(teacherIndex !== -1) {
+        files.unshift(files.splice(teacherIndex, 1)[0]);
+    }
+
     for (var i = 0; i < files.length; i++) {
         let zip = await JSZip.loadAsync(files[i]);
         let odt = await zip.file('content.xml').async('string');
