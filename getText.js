@@ -64,8 +64,9 @@ function handleFirst() {
 
 function exportToCsv() {
     let e = datas;
-    headers.names.unshift('Filename') // add "Filename" add the start of headers
-    e.unshift(headers.names); // put headers at the start of data needing export
+    let n = headers.names.slice(); // create a copy
+    n.unshift('Filename') // add "Filename" add the start of headers
+    e.unshift(n); // put headers at the start of data needing export
     log(CSV.serialize(e));
     downloadText('export.csv', CSV.serialize(e))
 }
