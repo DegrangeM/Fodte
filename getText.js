@@ -55,7 +55,7 @@ function handleFirst() {
     Array.from(inputs).forEach(function (e) {
         let id = e.getAttribute('draw:control');
         let el = id.indexOf('"') == -1 && doc.querySelector('form>*[*|id="' + id + '"]'); // get the input in form part
-        if (el && Forms[el.tagName]) {
+        if (el && Forms[el.tagName] && !Forms[el.tagName].ignore()) {
             headers.ids.push(id);
             headers.names.push(Forms[el.tagName].getName(el));
         }

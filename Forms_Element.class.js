@@ -48,7 +48,9 @@ Forms = {
                 .join(',');
         }
         static ignore(e) {
-            
+            const attribute = e.getAttribute('formx:group-name') ? 'formx:group-name' : 'form:name';
+
+            return headers.ids.map(x=>e.parentNode.getElementById(x)).filter(x => x && x.getAttribute(attribute) == e.getAttribute(attribute)).length > 0;
         }
     },
     "form:listbox": class extends Form_Element {
