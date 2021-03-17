@@ -47,6 +47,9 @@ Forms = {
                 .map(x => x.getAttribute('form:value') || x.getAttribute('form:label'))
                 .join(',');
         }
+        static ignore(e) {
+            
+        }
     },
     "form:listbox": class extends Form_Element {
         static getValue(e) {

@@ -14,7 +14,15 @@ let headers = {
     ids: [],
     names: []
 }
+
 let datas = [];
+
+let ignores = {
+    'radio': {
+        'formx:group-name': [],
+        'form:name': []
+        }
+};
 
 /**
  * 
