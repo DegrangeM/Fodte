@@ -51,7 +51,7 @@ function handleOdt(odt, filename) {
 
 
 function handleFirst() {
-    inputs = doc.getElementsByTagName('draw:control'); // get inputs in the text part
+    let inputs = doc.getElementsByTagName('draw:control'); // get inputs in the text part
     Array.from(inputs).forEach(function (e) {
         let id = e.getAttribute('draw:control');
         let el = id.indexOf('"') == -1 && doc.querySelector('form>*[*|id="' + id + '"]'); // get the input in form part
