@@ -38,13 +38,16 @@ Forms = {
         }
     },
     "form:radio": class extends Form_Element {
+        static getName(e) {
+            return e.getAttribute('form:name') || e.getAttribute('formx:group-name');
+        }
         static getValue(e) {
             // Autre méthode : doc.querySelectorAll('radio[*|group-name="toto"][*|current-selected]');
             const attribute = e.getAttribute('formx:group-name') ? 'formx:group-name' : 'form:name';
 
             return Array.from(e.parentNode.getElementsByTagName('form:radio'))
                 .filter(x => x.getAttribute(attribute) == e.getAttribute(attribute) && x.getAttribute('form:current-selected') == 'true')
-                .map(x => x.getAttribute('form:value') || x.getAttribute('form:label'))
+                .map(x => x.getAttribute('form:value') || x.getAttribute('form:label') || e.getAttribute('form:name'))
                 .join(',');
         }
         static ignore(e) {
