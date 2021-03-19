@@ -104,7 +104,9 @@ document.addEventListener('drop', async function (e) {
         }
     }
 
-    exportToCsv();
+    if (datas.length) {
+        exportToCsv();
+    }
 
 });
 
