@@ -52,6 +52,7 @@ body .status button .imported {
     font-weight: normal;
 }
 
-body .status button.hidden {
-    visibility: hidden;
+body .status button.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }

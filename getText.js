@@ -110,7 +110,7 @@ document.addEventListener('drop', async function (e) {
     let n = datas.length;
 
     if (n) {
-        document.querySelector('.status button').classList.remove('hidden');
+        document.querySelector('.status button').classList.remove('disabled');
         document.querySelector('.status button .imported').textContent = n > 1 ? '(' + n + ' fichiers importés)' : '(' + n + ' fichier importé)';
     }
 
