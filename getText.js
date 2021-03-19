@@ -97,9 +97,11 @@ document.addEventListener('drop', async function (e) {
     }
 
     for (var i = 0; i < files.length; i++) {
-        let zip = await JSZip.loadAsync(files[i]);
-        let odt = await zip.file('content.xml').async('string');
-        handleOdt(odt, files[i].name);
+        if (files[i].type === 'application/vnd.oasis.opendocument.text') {
+            let zip = await JSZip.loadAsync(files[i]);
+            let odt = await zip.file('content.xml').async('string');
+            handleOdt(odt, files[i].name);
+        }
     }
 
     exportToCsv();
