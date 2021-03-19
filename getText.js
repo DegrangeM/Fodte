@@ -88,6 +88,9 @@ function log(text) {
 
 document.addEventListener('drop', async function (e) {
     e.preventDefault();
+
+    document.body.classList.remove('hover');
+
     let files = Array.from(e.dataTransfer.files); // required because it will be lost during async
 
     let teacherIndex = files.findIndex(x => x.name === '_teacher.odt');
