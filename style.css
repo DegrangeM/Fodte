@@ -18,6 +18,7 @@ body > div {
     padding: 2vw;
 }
 
-body > div.hover {
+body.hover > div {
     text-shadow: 5px 5px 10px black;
+    pointer-events: none; /* required for dragleave */
 }

@@ -111,9 +111,15 @@ document.addEventListener('dragover', function (e) {
 });
 
 document.addEventListener('dragenter', function (e) {
-    document.getElementsByTagName('div')[0].classList.add('hover');
+    document.body.classList.add('hover');
 });
 
 document.addEventListener('dragend', function (e) {
-    document.getElementsByTagName('div')[0].classList.remove('hover');
+    document.body.classList.remove('hover');
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.body.addEventListener('dragleave', function (e) {
+        document.body.classList.remove('hover');
+    });
 });
