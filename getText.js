@@ -45,7 +45,6 @@ function handleOdt(odt, filename) {
     datas.push(data);
 }
 
-
 function handleFirst() {
     let inputs = doc.getElementsByTagName('draw:control'); // get inputs in the text part
     Array.from(inputs).forEach(function (e) {
@@ -87,14 +86,13 @@ function log(text) {
     document.body.appendChild(p);
 }
 
-
 document.addEventListener('drop', async function (e) {
     e.preventDefault();
     let files = Array.from(e.dataTransfer.files); // required because it will be lost during async
 
-    let teacherIndex = files.findIndex(x=>x.name === '_teacher.odt');
+    let teacherIndex = files.findIndex(x => x.name === '_teacher.odt');
 
-    if(teacherIndex !== -1) {
+    if (teacherIndex !== -1) {
         files.unshift(files.splice(teacherIndex, 1)[0]);
     }
 
@@ -107,6 +105,15 @@ document.addEventListener('drop', async function (e) {
     exportToCsv();
 
 });
+
 document.addEventListener('dragover', function (e) {
     e.preventDefault();
+});
+
+document.addEventListener('dragenter', function (e) {
+    document.getElementsByTagName('div')[0].classList.add('hover');
+});
+
+document.addEventListener('dragend', function (e) {
+    document.getElementsByTagName('div')[0].classList.remove('hover');
 });
