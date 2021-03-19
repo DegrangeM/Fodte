@@ -34,18 +34,22 @@ body .status {
     margin-top: 15px;
 }
 
-body .status button {
+button {
     display: inline-block;
     outline: none;
     cursor: pointer;
     border: 1px solid #DDD;
-    background-color: #fff;
+    background-color: #FFF;
     border-radius: 12px;
     padding: 10px;
     line-height: 26px;
     font-weight: bold;
     font-size: 14px;
     color: #1E2235;
+}
+
+button:hover {
+    background-color: #EEE;
 }
 
 body .status button .imported {
@@ -55,4 +59,23 @@ body .status button .imported {
 body .status button.disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+body .status button.disabled:hover {
+    background-color: #FFF;
+}
+
+button.help {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    padding: 0px 10px;
+    font-size: 12px;
+    border-radius: 8px;
+}
+
+button.help::before {
+    content: '?';
+    margin-right: 5px;
+    font-weight: bolder;
 }
