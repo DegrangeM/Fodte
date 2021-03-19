@@ -62,7 +62,7 @@ function exportToCsv() {
     let n = headers.names.slice(); // create a copy
     n.unshift('Filename') // add "Filename" add the start of headers
     e.unshift(n); // put headers at the start of data needing export
-    log(CSV.serialize(e));
+    // log(CSV.serialize(e));
     downloadText('export.csv', CSV.serialize(e))
 }
 
