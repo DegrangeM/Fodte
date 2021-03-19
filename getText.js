@@ -49,7 +49,7 @@ function handleFirst() {
     let inputs = doc.getElementsByTagName('draw:control'); // get inputs in the text part
     Array.from(inputs).forEach(function (e) {
         let id = e.getAttribute('draw:control');
-        let el = id.indexOf('"') == -1 && doc.querySelector('form>*[*|id="' + id + '"]'); // get the input in form part
+        let el = id.indexOf('"') === -1 && doc.querySelector('form>*[*|id="' + id + '"]'); // get the input in form part
         if (el && Forms[el.tagName] && !Forms[el.tagName].ignore(el)) {
             headers.ids.push(id);
             headers.names.push(Forms[el.tagName].getName(el));
@@ -107,15 +107,28 @@ document.addEventListener('drop', async function (e) {
         }
     }
 
-    if (datas.length) {
-        exportToCsv();
+    let n = datas.length;
+
+    if (n) {
+        document.querySelector('.status button').classList.remove('hidden');
+        document.querySelector('.status button .imported').textContent = n > 1 ? '(' + n + ' fichiers importés)' : '(' + n + ' fichier importé)';
     }
 
+
+});
+
+document.addEventListener('DOMContentLoaded', function (event) {
+    document.querySelector('.status button').addEventListener('click', function (e) {
+        if (datas.length) {
+            exportToCsv();
+        }
+    });
 });
 
 document.addEventListener('dragover', function (e) {
     e.preventDefault();
 });
+
 
 document.addEventListener('dragenter', function (e) {
     document.body.classList.add('hover');

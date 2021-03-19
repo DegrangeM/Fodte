@@ -8,17 +8,50 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%;
-    color: white;
-    font-size: 5vw;
     margin: 0px;
 }
 
-body > div {
+body .drop-here {
     border: 1vw dashed white;
     padding: 2vw;
+    color: white;
+    font-size: 4vw;
+    text-align: center;
 }
 
-body.hover > div {
+body.hover .drop-here {
     text-shadow: 5px 5px 10px black;
-    pointer-events: none; /* required for dragleave */
+}
+
+body.hover * {
+    /* required for dragleave */
+    pointer-events: none;
+}
+
+body .status {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+body .status button {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    border: 1px solid #DDD;
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 10px;
+    line-height: 26px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #1E2235;
+}
+
+body .status button .imported {
+    font-weight: normal;
+}
+
+body .status button.hidden {
+    visibility: hidden;
 }
