@@ -80,19 +80,7 @@ function downloadText(filename, txt) {
     document.body.removeChild(el);
 }
 
-function log(text) {
-    let p = document.createElement('pre');
-    p.textContent = text;
-    document.body.appendChild(p);
-}
-
-document.addEventListener('drop', async function (e) {
-    e.preventDefault();
-
-    document.body.classList.remove('hover');
-
-    let files = Array.from(e.dataTransfer.files); // required because it will be lost during async
-
+async function handleFiles(files) {
     let teacherIndex = files.findIndex(x => x.name === '_teacher.odt');
 
     if (teacherIndex !== -1) {
@@ -106,14 +94,29 @@ document.addEventListener('drop', async function (e) {
             handleOdt(odt, files[i].name);
         }
     }
+}
 
+function log(text) {
+    let p = document.createElement('pre');
+    p.textContent = text;
+    document.body.appendChild(p);
+}
+
+document.addEventListener('drop', async function (e) {
+    e.preventDefault();
+
+    document.body.classList.remove('hover');
+
+    let files = Array.from(e.dataTransfer.files); // required because it will be lost during async
+
+    await handleFiles(files);
+    
     let n = datas.length;
 
     if (n) {
         document.querySelector('.status button').classList.remove('disabled');
         document.querySelector('.status button .imported').textContent = n > 1 ? '(' + n + ' fichiers importés)' : '(' + n + ' fichier importé)';
     }
-
 
 });
 
