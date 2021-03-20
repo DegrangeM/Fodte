@@ -88,10 +88,16 @@ async function handleFiles(files) {
     }
 
     for (var i = 0; i < files.length; i++) {
-        if (files[i].type === 'application/vnd.oasis.opendocument.text') {
+        if (files[i].type === 'application/vnd.oasis.opendocument.text' || files[i].name.substr(-4) == '.odt') {
             let zip = await JSZip.loadAsync(files[i]);
             let odt = await zip.file('content.xml').async('string');
             handleOdt(odt, files[i].name);
+        } else if (files[i].type === 'application/x-zip-compressed') {
+            let zip = await JSZip.loadAsync(files[i]);
+            for (let [name, file] of Object.entries(zip.files)) { // Loop throught each files of the zip
+                let blobFile = await file.async('blob');
+                files.push(new File([blobFile], name));
+            }
         }
     }
 }
@@ -110,7 +116,7 @@ document.addEventListener('drop', async function (e) {
     let files = Array.from(e.dataTransfer.files); // required because it will be lost during async
 
     await handleFiles(files);
-    
+
     let n = datas.length;
 
     if (n) {
