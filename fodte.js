@@ -43,6 +43,9 @@ function handleOdt(odt, filename) {
         }
     });
     datas.push(data);
+
+    updateButton();
+    
 }
 
 function handleFirst() {
@@ -64,6 +67,15 @@ function exportToCsv() {
     e.unshift(n); // put headers at the start of data needing export
     // log(CSV.serialize(e));
     downloadText('export.csv', CSV.serialize(e))
+}
+
+function updateButton() {
+    let n = datas.length;
+
+    if (n) {
+        document.querySelector('.status button').classList.remove('disabled');
+        document.querySelector('.status button .imported').textContent = n > 1 ? '(' + n + ' fichiers importés)' : '(' + n + ' fichier importé)';
+    }
 }
 
 function downloadText(filename, txt) {
@@ -117,12 +129,7 @@ document.addEventListener('drop', async function (e) {
 
     await handleFiles(files);
 
-    let n = datas.length;
-
-    if (n) {
-        document.querySelector('.status button').classList.remove('disabled');
-        document.querySelector('.status button .imported').textContent = n > 1 ? '(' + n + ' fichiers importés)' : '(' + n + ' fichier importé)';
-    }
+    updateButton();
 
 });
 
