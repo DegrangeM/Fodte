@@ -73,7 +73,6 @@ function updateButton() {
     let n = datas.length;
 
     if (n) {
-        document.querySelector('.status button').classList.remove('disabled');
         document.querySelector('.status button .imported').textContent = n > 1 ? '(' + n + ' fichiers importés)' : '(' + n + ' fichier importé)';
     }
 }
@@ -125,11 +124,18 @@ document.addEventListener('drop', async function (e) {
 
     document.body.classList.remove('hover');
 
+    document.querySelector('.status button').classList.add('disabled');
+
+
     let files = Array.from(e.dataTransfer.files); // required because it will be lost during async
 
     await handleFiles(files);
 
     updateButton();
+
+    if(datas.length) {
+        document.querySelector('.status button').classList.remove('disabled');
+    }
 
 });
 
