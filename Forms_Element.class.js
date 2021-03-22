@@ -29,6 +29,11 @@ Forms = {
             return e.getAttribute('form:current-value') || '';
         }
     },
+    "form:textarea": class extends Form_Element {
+        static getValue(e) {
+            return e.getAttribute('form:current-value') || '';
+        }
+    },
     "form:checkbox": class extends Form_Element {
         static getName(e) {
             return e.getAttribute('form:label') || e.getAttribute('form:name');
