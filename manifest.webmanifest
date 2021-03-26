@@ -1,0 +1,13 @@
+{
+	"name": "Fodte",
+	"short_name": "Fodte",
+	"description": "Fodte (Form Odt Exporter) est un outil permettant d'extraire le contenu des champs de formulaires de documents Libreoffice Writer et d'en générer un fichier tableur (csv).",
+	"start_url": "index.html",
+	"display": "standalone",
+	"icons": [
+	{
+		"src": "icon.svg",
+		"sizes": "144x144"
+	}
+	]
+}

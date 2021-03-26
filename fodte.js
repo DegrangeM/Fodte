@@ -165,3 +165,9 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.classList.remove('hover');
     });
 });
+
+window.addEventListener('load', function() {
+    if(location.protocol !== 'file:') {
+        navigator.serviceWorker.register('sw.js');
+    }
+});
