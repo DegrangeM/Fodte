@@ -100,9 +100,13 @@ async function handleFiles(files) {
 
     for (var i = 0; i < files.length; i++) {
         if (files[i].type === 'application/vnd.oasis.opendocument.text' || files[i].name.substr(-4) == '.odt') {
+            try {
             let zip = await JSZip.loadAsync(files[i]);
             let odt = await zip.file('content.xml').async('string');
             handleOdt(odt, files[i].name);
+            } catch(e) {
+                alert("Erreur avec le fichier " + files[i].name);
+            }
         } else if (files[i].type === 'application/x-zip-compressed') {
             let zip = await JSZip.loadAsync(files[i]);
             for (let [name, file] of Object.entries(zip.files)) { // Loop throught each files of the zip
