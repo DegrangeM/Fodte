@@ -1,4 +1,4 @@
-# Fodt
+# Fodte
 
 Fodte (Form Odt Exporter) est une application web permettant d'extraire le contenu des champs de formulaires de documents Libreoffice Writer et d'en générer un fichier tableur (csv).
 
