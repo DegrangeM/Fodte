@@ -32,6 +32,7 @@ Forms["form:text"] = class extends Form_Element {
 Forms["form:textarea"] = class extends Forms["form:text"] { };
 Forms["form:formatted-text"] = class extends Forms["form:text"] { };
 Forms["form:date"] = class extends Forms["form:text"] { };
+Forms["form:time"] = class extends Forms["form:text"] { };
 Forms["form:checkbox"] = class extends Form_Element {
     static getName(e) {
         return e.getAttribute('form:label') || e.getAttribute('form:name');
