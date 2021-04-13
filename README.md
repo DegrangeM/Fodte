@@ -15,3 +15,5 @@ L'application peut être utilisée via sa version [en ligne](https://degrangem.g
 Le [wiki](https://github.com/DegrangeM/Fodte/wiki) contient divers tutoriels utiles.
 
 ![image](https://user-images.githubusercontent.com/53106394/111541787-34186400-8771-11eb-91f6-848f938d700b.png)
+
+Si vous souhaitez extraire le contenu des champs de formulaires de document pdf vous pouvez consulter mon autre outil [Fpdfe](https://github.com/DegrangeM/Fpdfe).
