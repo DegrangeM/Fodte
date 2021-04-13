@@ -1,3 +1,7 @@
+<a href="https://degrangem.github.io/Fodte/"><img src="https://badgen.net/badge/Fodte/Version%20en%20ligne/blue?icon=github"></a>
+<a href="https://github.com/DegrangeM/Fodte/wiki"><img src="https://badgen.net/badge/Fodte/Wiki/blue?icon=wiki"></a>
+
+
 # Fodte
 
 Fodte (Form Odt Exporter) est une application web permettant d'extraire le contenu des champs de formulaires de documents Libreoffice Writer et d'en générer un fichier tableur (csv).
