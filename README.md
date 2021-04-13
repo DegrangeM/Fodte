@@ -1,6 +1,6 @@
 <a href="https://degrangem.github.io/Fodte/"><img src="https://badgen.net/badge/Fodte/Version%20en%20ligne/0f81c1?icon=github"></a>
 <a href="https://github.com/DegrangeM/Fodte/wiki"><img src="https://badgen.net/badge/Fodte/Wiki/0f81c1?icon=wiki"></a>
-<a href="https://degrangem.github.io/Fpdfe/"><img src="https://badgen.net/badge/Fpdfe/Alternative (.pdf)/d50000?icon=github"></a>
+<a href="https://github.com/DegrangeM/Fpdfe/"><img src="https://badgen.net/badge/Fpdfe/Alternative (.pdf)/d50000?icon=github"></a>
 
 
 
