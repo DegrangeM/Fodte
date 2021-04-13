@@ -1,5 +1,5 @@
-<a href="https://degrangem.github.io/Fodte/"><img src="https://badgen.net/badge/Fodte/Version%20en%20ligne/blue?icon=github"></a>
-<a href="https://github.com/DegrangeM/Fodte/wiki"><img src="https://badgen.net/badge/Fodte/Wiki/blue?icon=wiki"></a>
+<a href="https://degrangem.github.io/Fodte/"><img src="https://badgen.net/badge/Fodte/Version%20en%20ligne/0f81c1?icon=github"></a>
+<a href="https://github.com/DegrangeM/Fodte/wiki"><img src="https://badgen.net/badge/Fodte/Wiki/0f81c1?icon=wiki"></a>
 
 
 # Fodte
