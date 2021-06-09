@@ -45,7 +45,7 @@ function handleOdt(odt, filename) {
     datas.push(data);
 
     updateButton();
-    
+
 }
 
 function handleFirst() {
@@ -101,10 +101,10 @@ async function handleFiles(files) {
     for (var i = 0; i < files.length; i++) {
         if (files[i].type === 'application/vnd.oasis.opendocument.text' || files[i].name.substr(-4) == '.odt') {
             try {
-            let zip = await JSZip.loadAsync(files[i]);
-            let odt = await zip.file('content.xml').async('string');
-            handleOdt(odt, files[i].name);
-            } catch(e) {
+                let zip = await JSZip.loadAsync(files[i]);
+                let odt = await zip.file('content.xml').async('string');
+                handleOdt(odt, files[i].name);
+            } catch (e) {
                 alert("Erreur avec le fichier " + files[i].name);
             }
         } else if (files[i].type === 'application/x-zip-compressed') {
@@ -137,7 +137,7 @@ document.addEventListener('drop', async function (e) {
 
     updateButton();
 
-    if(datas.length) {
+    if (datas.length) {
         document.querySelector('.status button').classList.remove('disabled');
     }
 
@@ -170,8 +170,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-window.addEventListener('load', function() {
-    if(location.protocol !== 'file:') {
+window.addEventListener('load', function () {
+    if (location.protocol !== 'file:') {
         navigator.serviceWorker.register('sw.js');
     }
 });
